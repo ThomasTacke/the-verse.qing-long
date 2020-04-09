@@ -1,0 +1,38 @@
+{
+  "name": "qing-long",
+  "version": "0.0.1",
+  "description": "",
+  "main": "inex.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node --files ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/smart-home-the-verse/qing-long.git"
+  },
+  "author": "Thomas Tacke <thomas@tacke.email>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/smart-home-the-verse/qing-long/issues"
+  },
+  "homepage": "https://gitlab.com/smart-home-the-verse/qing-long#readme",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^13.11.0",
+    "ts-node": "^8.8.2",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "async-mqtt": "^2.5.0",
+    "dotenv": "^8.2.0",
+    "fastify": "^2.13.0",
+    "fastify-decorators": "^1.3.0",
+    "fastify-swagger": "^2.5.1",
+    "fastify-typeorm": "^2.1.1",
+    "mongodb": "^3.5.5",
+    "sqlite3": "^4.1.1",
+    "typeorm": "^0.2.24"
+  }
+}

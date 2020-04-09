@@ -1,0 +1,51 @@
+default:
+  image: node:lts-alpine3.9
+
+services:
+  - eclipse-mosquitto:latest
+
+build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --target prod -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+
+test_async:
+  stage: test
+  variables:
+    NODE_ENV: test
+  script:
+    - npm install
+    - npm run test
+
+docker-build:
+  image: docker:latest
+  stage: deploy
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull --target prod -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
+  only:
+    - master
+
+stages:
+  - build
+  - test
+  - buildx
+  - deploy
+
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
+  - template: License-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+  - template: Container-Scanning.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
