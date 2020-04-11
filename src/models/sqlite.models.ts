@@ -11,9 +11,6 @@ export class Room implements IRoom {
 
   @Column()
   shortname: string;
-
-  @OneToOne(() => Device) @JoinColumn()
-  device: Device;
 }
 
 @Entity()
