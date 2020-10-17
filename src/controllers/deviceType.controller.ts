@@ -1,6 +1,5 @@
-import { FastifyReply, FastifyRequest, RouteSchema } from 'fastify'
-import { Controller, ControllerType, GET, PUT, POST, DELETE, AbstractController } from 'fastify-decorators';
-import { IncomingMessage, ServerResponse } from 'http'
+import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
+import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
 import { DeviceType } from '../models/sqlite.models';
 import S from 'fluent-schema';
 
@@ -21,20 +20,20 @@ const deviceTypeBodySchema = S.object()
 const idParam = S.object()
   .prop('id', S.number());
 
-const getDeviceTypesSchema: RouteSchema = {
+const getDeviceTypesSchema = {
   tags: [tag],
   description: 'Get Device Types',
   response: { 200: deviceTypesSchema }
 };
 
-const getDeviceTypeSchema: RouteSchema = {
+const getDeviceTypeSchema = {
   tags: [tag],
   description: 'Get Specific Device Type',
   params: idParam,
   response: { 200: deviceTypeSchema }
 };
 
-const putDeviceTypeSchema: RouteSchema = {
+const putDeviceTypeSchema = {
   tags: [tag],
   description: 'Update Device Type',
   params: idParam,
@@ -42,14 +41,14 @@ const putDeviceTypeSchema: RouteSchema = {
   response: { 200: deviceTypeSchema }
 };
 
-const postDeviceTypeSchema: RouteSchema = {
+const postDeviceTypeSchema = {
   tags: [tag],
   description: 'Create Device Type',
   body: deviceTypeBodySchema,
   response: { 201: deviceTypeSchema }
 };
 
-const deleteDeviceTypeSchema: RouteSchema = {
+const deleteDeviceTypeSchema = {
   tags: [tag],
   description: 'Delete Device Type',
   params: idParam,
@@ -59,20 +58,22 @@ const deleteDeviceTypeSchema: RouteSchema = {
 @Controller({
   route: 'devicetype',
   type: ControllerType.SINGLETON
-}) export default class DeviceTypeController extends AbstractController {
-  @GET({ url: '/', options: { schema: getDeviceTypesSchema } }) async getRooms(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+}) export default class DeviceTypeController {
+  @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
+  
+  @GET({ url: '/', options: { schema: getDeviceTypesSchema } }) async getRooms(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);
     const deviceTypes = await deviceTypeRepository.find();
     return reply.code(200).send(JSON.stringify({ deviceTypes: deviceTypes }));
   }
 
-  @GET({ url: '/:id', options: { schema: getDeviceTypeSchema } }) async getOneDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @GET({ url: '/:id', options: { schema: getDeviceTypeSchema } }) async getOneDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);
     const deviceType = await deviceTypeRepository.findOne(request.params.id);
     return reply.code(200).send(JSON.stringify(deviceType));
   }
 
-  @PUT({ url: '/:id', options: { schema: putDeviceTypeSchema } }) async updateDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @PUT({ url: '/:id', options: { schema: putDeviceTypeSchema } }) async updateDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);
     const deviceType = await deviceTypeRepository.findOne(request.params.id);
     deviceType.name = request.body.name;
@@ -80,7 +81,7 @@ const deleteDeviceTypeSchema: RouteSchema = {
     return reply.code(200).send(deviceType);
   }
 
-  @POST({ url: '/', options: { schema: postDeviceTypeSchema } }) async createDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @POST({ url: '/', options: { schema: postDeviceTypeSchema } }) async createDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);
     let deviceType = new DeviceType();
     deviceType.name = request.body.name;
@@ -88,7 +89,7 @@ const deleteDeviceTypeSchema: RouteSchema = {
     return reply.code(200).send(deviceType);
   }
 
-  @DELETE({ url: '/:id', options: { schema: deleteDeviceTypeSchema } }) async deleteDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @DELETE({ url: '/:id', options: { schema: deleteDeviceTypeSchema } }) async deleteDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);
     const deviceType = await deviceTypeRepository.findOne(request.params.id);
     await deviceTypeRepository.remove(deviceType);

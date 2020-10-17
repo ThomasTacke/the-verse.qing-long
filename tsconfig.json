@@ -1,4 +1,3 @@
-  
 {
   "compilerOptions": {
     /* Basic Options */
@@ -19,6 +18,6 @@
     "emitDecoratorMetadata": true
   },
   "exclude": [
-    "test"
+    "tests"
   ]
 }

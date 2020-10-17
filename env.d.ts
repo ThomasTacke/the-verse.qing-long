@@ -1,11 +1,11 @@
 declare namespace NodeJS {
   export interface ProcessEnv {
-    MQTT_BROKER: string;
-    DB_HOST: string;
-    DB_PORT?: number;
-    DB_NAME: string;
-    DB_USER: string;
-    DB_PASSWORD: string;
+    DB_HOST?: string;
+    DB_PORT?: string;
+    DB_NAME?: string;
+    DB_USER?: string;
+    DB_PASSWORD?: string;
+    DB_FILENAME?: string;
     NODE_ENV?: string;
     ADDRESS?: string;
     PORT?: string;

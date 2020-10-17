@@ -11,6 +11,9 @@ export class Room implements IRoom {
 
   @Column()
   shortname: string;
+
+  @OneToMany(() => Device, device => device.id)
+  devices: Array<Device>;
 }
 
 @Entity()
@@ -20,6 +23,9 @@ export class DeviceType implements IDeviceType {
 
   @Column()
   name: string;
+
+  @OneToMany(() => Device, device => device.type)
+  devices: Array<Device>;
 }
 
 @Entity()
@@ -30,10 +36,10 @@ export class Device implements IDevice {
   @Column()
   name: string;
 
-  @OneToOne(() => Room) @JoinColumn()
+  @ManyToOne(() => Room) @JoinColumn()
   room: Room;
 
-  @OneToOne(() => DeviceType)  @JoinColumn()
+  @ManyToOne(() => DeviceType) @JoinColumn()
   type: DeviceType;
 
   @OneToMany(() => MqttComponent, mqtt => mqtt.device)
@@ -47,6 +53,9 @@ export class MqttComponentType {
 
   @Column()
   type: string;
+
+  @OneToMany(() => MqttComponent, component => component.type)
+  mqttComponents: Array<MqttComponent>;
 }
 
 @Entity()
@@ -60,7 +69,7 @@ export class MqttComponent implements IMqttComponent {
   @OneToMany(() => MqttComponentValue, value => value.mqttComponent)
   values: Array<MqttComponentValue>;
 
-  @OneToOne(() => MqttComponentType) @JoinColumn()
+  @ManyToOne(() => MqttComponentType, type => type.id)
   type: MqttComponentType;
 
   @ManyToOne(() => Device, device => device.mqttComponents)
@@ -74,6 +83,9 @@ export class MqttComponentValue {
 
   @Column()
   value: string;
+
+  @Column()
+  type: string;
 
   @ManyToOne(() => MqttComponent, mqttComponent => mqttComponent.values)
   mqttComponent: MqttComponent;

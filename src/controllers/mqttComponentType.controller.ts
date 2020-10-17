@@ -1,6 +1,5 @@
-import { FastifyReply, FastifyRequest, RouteSchema } from 'fastify'
-import { Controller, ControllerType, GET, PUT, POST, DELETE, AbstractController } from 'fastify-decorators';
-import { IncomingMessage, ServerResponse } from 'http'
+import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
+import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
 import { MqttComponentType } from '../models/sqlite.models';
 import S from 'fluent-schema';
 
@@ -21,20 +20,20 @@ const mqttComponentTypeBodySchema = S.object()
 const idParam = S.object()
   .prop('id', S.number());
 
-const getMqttComponentTypesSchema: RouteSchema = {
+const getMqttComponentTypesSchema = {
   tags: [tag],
   description: 'Get MQTT Component Types',
   response: { 200: mqttComponentTypesSchema }
 };
 
-const getMqttComponentTypeSchema: RouteSchema = {
+const getMqttComponentTypeSchema = {
   tags: [tag],
   description: 'Get Specific MQTT Component Type',
   params: idParam,
   response: { 200: mqttComponentTypeSchema }
 };
 
-const putMqttComponentTypeSchema: RouteSchema = {
+const putMqttComponentTypeSchema = {
   tags: [tag],
   description: 'Update MQTT Component Type',
   params: idParam,
@@ -42,14 +41,14 @@ const putMqttComponentTypeSchema: RouteSchema = {
   response: { 200: mqttComponentTypeSchema }
 };
 
-const postMqttComponentTypeSchema: RouteSchema = {
+const postMqttComponentTypeSchema = {
   tags: [tag],
   description: 'Create MQTT Component Type',
   body: mqttComponentTypeBodySchema,
   response: { 201: mqttComponentTypeSchema }
 };
 
-const deleteMqttComponentTypeSchema: RouteSchema = {
+const deleteMqttComponentTypeSchema = {
   tags: [tag],
   description: 'Delete MQTT Component Type',
   params: idParam,
@@ -59,20 +58,22 @@ const deleteMqttComponentTypeSchema: RouteSchema = {
 @Controller({
   route: 'mqttcomponenttype',
   type: ControllerType.SINGLETON
-}) export default class DeviceTypeController extends AbstractController {
-  @GET({ url: '/', options: { schema: getMqttComponentTypesSchema } }) async getMqttComponentTypes(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+}) export default class DeviceTypeController {
+  @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
+
+  @GET({ url: '/', options: { schema: getMqttComponentTypesSchema } }) async getMqttComponentTypes(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentTypeRepository = this.instance.orm.getRepository(MqttComponentType);
     const mqttComponentTypes = await mqttComponentTypeRepository.find();
     return reply.code(200).send(JSON.stringify({ mqttComponentTypes: mqttComponentTypes }));
   }
 
-  @GET({ url: '/:id', options: { schema: getMqttComponentTypeSchema } }) async getOneMqttcomponentType(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @GET({ url: '/:id', options: { schema: getMqttComponentTypeSchema } }) async getOneMqttcomponentType(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentTypeRepository = this.instance.orm.getRepository(MqttComponentType);
     const mqttComponentType = await mqttComponentTypeRepository.findOne(request.params.id);
     return reply.code(200).send(JSON.stringify(mqttComponentType));
   }
 
-  @PUT({ url: '/:id', options: { schema: putMqttComponentTypeSchema } }) async updateMqttComponentType(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @PUT({ url: '/:id', options: { schema: putMqttComponentTypeSchema } }) async updateMqttComponentType(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentTypeRepository = this.instance.orm.getRepository(MqttComponentType);
     const mqttComponentType = await mqttComponentTypeRepository.findOne(request.params.id);
     mqttComponentType.type = request.body.type;
@@ -80,7 +81,7 @@ const deleteMqttComponentTypeSchema: RouteSchema = {
     return reply.code(200).send(mqttComponentType);
   }
 
-  @POST({ url: '/', options: { schema: postMqttComponentTypeSchema } }) async createMqttComponentType(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @POST({ url: '/', options: { schema: postMqttComponentTypeSchema } }) async createMqttComponentType(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentTypeRepository = this.instance.orm.getRepository(MqttComponentType);
     let mqttComponentType = new MqttComponentType();
     mqttComponentType.type = request.body.type;
@@ -88,7 +89,7 @@ const deleteMqttComponentTypeSchema: RouteSchema = {
     return reply.code(200).send(mqttComponentType);
   }
 
-  @DELETE({ url: '/:id', options: { schema: deleteMqttComponentTypeSchema } }) async deleteMqttComponentType(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @DELETE({ url: '/:id', options: { schema: deleteMqttComponentTypeSchema } }) async deleteMqttComponentType(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentTypeRepository = this.instance.orm.getRepository(MqttComponentType);
     const mqttComponentType = await mqttComponentTypeRepository.findOne(request.params.id);
     await mqttComponentTypeRepository.remove(mqttComponentType);

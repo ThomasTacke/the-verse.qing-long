@@ -1,4 +1,4 @@
-import createServer from './server';
+import { createServer } from './server';
 
 const serverAddress = process.env.ADDRESS || '0.0.0.0';
 const serverPort = +process.env.PORT || 3000;
@@ -8,7 +8,7 @@ const server = createServer();
 const start = async () => {
   try {
     await server.listen(serverPort, serverAddress);
-    server.swagger()
+    server.oas()
   } catch (error) {
     console.log(error);
     process.exit(1);

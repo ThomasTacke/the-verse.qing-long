@@ -1,9 +1,9 @@
 // Require the framework
-import Fastify from 'fastify';
-import { ServerResponse } from 'http';
-import Swagger from 'fastify-swagger';
+import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify';
+// import Swagger, { FastifyDynamicSwaggerOptions } from 'fastify-swagger';
+import oas from 'fastify-oas';
 import { bootstrap } from 'fastify-decorators';
-import { join } from 'path';
+import { resolve } from 'path';
 import dotenv from "dotenv";
 import { Room, DeviceType, Device, MqttComponent, MqttComponentType, MqttComponentValue } from './models/sqlite.models';
 import fastifyTypeorm = require('fastify-typeorm');
@@ -16,25 +16,29 @@ import { deviceResponseSchema, devicesResponseSchema } from './controllers/devic
 
 dotenv.config();
 
-const fastifyOpts = process.env.NODE_ENV !== 'test' ? {
-  logger: true,
-  pluginTimeout: 10000
+const fastifyOpts: FastifyServerOptions = process.env.NODE_ENV !== 'test' ? {
+  logger: {
+    level: process.env.DEBUG === 'true' ? 'debug' : 'info'
+  },
+  pluginTimeout: 10000,
 } : {}
 
-const swaggerSchema: Swagger.FastifyDynamicSwaggerOptions = {
+const swaggerSchema = {
   routePrefix: '/documentation',
   swagger: {
     info: {
       title: 'Qing Long - Blue Dragon API',
       description: 'testing the fastify swagger api',
-      version: '0.0.1',
+      version: '0.1.0',
     },
     externalDocs: {
       url: 'https://swagger.io',
       description: 'Find more info here',
     },
+    host: 'localhost:3000',
+    schemes: ['http', 'https'],
     consumes: ['application/json'],
-    produces: ['application/json'],
+    produces: ['application/json']
   },
   exposeRoute: true
 }
@@ -42,15 +46,15 @@ const swaggerSchema: Swagger.FastifyDynamicSwaggerOptions = {
 const createServer = () => {
 
   // Instantiate Fastify with some config
-  const fastify: Fastify.FastifyInstance = Fastify(fastifyOpts);
+  const instance: FastifyInstance = Fastify(fastifyOpts);
 
   // Register Swagger
-  fastify.register(Swagger, swaggerSchema);
+  instance.register(oas, swaggerSchema);
 
-  // Register MongoDB Plugin
-  fastify.register(fastifyTypeorm, {
+  // Register DB Plugin
+  instance.register(fastifyTypeorm, {
     type: 'sqlite',
-    database: './db.sqlite3',
+    database: process.env.DB_FILENAME || './db.sqlite3',
     entities: [
       Room, DeviceType, MqttComponentType, MqttComponentValue, MqttComponent, Device
     ],
@@ -59,34 +63,30 @@ const createServer = () => {
   });
 
   // Add Schemas to fastify instance
-  fastify.addSchema(roomSchema);
-  fastify.addSchema(roomsSchema);
-  fastify.addSchema(deviceTypeSchema);
-  fastify.addSchema(deviceTypesSchema);
-  fastify.addSchema(mqttComponentTypeSchema);
-  fastify.addSchema(mqttComponentTypesSchema);
-  fastify.addSchema(mqttComponentValueSchema);
-  fastify.addSchema(mqttComponentValuesSchema);
-  fastify.addSchema(mqttComponentSchema);
-  fastify.addSchema(mqttComponentsSchema);
-  fastify.addSchema(deviceResponseSchema);
-  fastify.addSchema(devicesResponseSchema);
+  instance.addSchema(roomSchema);
+  instance.addSchema(roomsSchema);
+  instance.addSchema(deviceTypeSchema);
+  instance.addSchema(deviceTypesSchema);
+  instance.addSchema(mqttComponentTypeSchema);
+  instance.addSchema(mqttComponentTypesSchema);
+  instance.addSchema(mqttComponentValueSchema);
+  instance.addSchema(mqttComponentValuesSchema);
+  instance.addSchema(mqttComponentSchema);
+  instance.addSchema(mqttComponentsSchema);
+  instance.addSchema(deviceResponseSchema);
+  instance.addSchema(devicesResponseSchema);
 
   // Register routes here
-  fastify.register(bootstrap, {
-    controllersDirectory: join(__dirname, 'controllers'),
-    controllersMask: /\.controller\./
+  instance.register(bootstrap, {
+    directory: resolve(__dirname, `controllers`),
+    // prefix: '/qing-long/v1',
+    mask: /\.controller\./
   });
 
-  // Register own Plugins here
+  instance.ready();
 
-  fastify.setErrorHandler((error: any, request: Fastify.FastifyRequest, reply: Fastify.FastifyReply<ServerResponse>) => {
-    request.log.error(error.toString());
-    reply.code(500).send(JSON.stringify(error));
-  });
+  return instance;
 
-  fastify.ready();
-  return fastify;
 }
 
-export default createServer;
+export { createServer };

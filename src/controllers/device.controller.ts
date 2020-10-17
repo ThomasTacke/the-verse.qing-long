@@ -1,6 +1,5 @@
-import { FastifyReply, FastifyRequest, RouteSchema } from 'fastify'
-import { Controller, ControllerType, GET, PUT, POST, DELETE, AbstractController } from 'fastify-decorators';
-import { IncomingMessage, ServerResponse } from 'http'
+import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
+import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
 import { Device, Room, DeviceType, MqttComponent } from '../models/sqlite.models';
 import S from 'fluent-schema';
 
@@ -27,20 +26,20 @@ const deviceBodySchema = S.object()
 const idParam = S.object()
   .prop('id', S.number());
 
-const getDevicesSchema: RouteSchema = {
+const getDevicesSchema = {
   tags: [tag],
   description: 'Get Devices',
   response: { 200: devicesResponseSchema }
 };
 
-const getDeviceSchema: RouteSchema = {
+const getDeviceSchema = {
   tags: [tag],
   description: 'Get Specific Device',
   params: idParam,
   response: { 200: deviceResponseSchema }
 };
 
-const putDeviceSchema: RouteSchema = {
+const putDeviceSchema = {
   tags: [tag],
   description: 'Update Device',
   params: idParam,
@@ -48,14 +47,14 @@ const putDeviceSchema: RouteSchema = {
   response: { 200: deviceResponseSchema }
 };
 
-const postDeviceSchema: RouteSchema = {
+const postDeviceSchema = {
   tags: [tag],
   description: 'Create Device',
   body: deviceBodySchema,
   response: { 201: deviceResponseSchema }
 };
 
-const deleteDeviceSchema: RouteSchema = {
+const deleteDeviceSchema = {
   tags: [tag],
   description: 'Delete Device',
   params: idParam,
@@ -65,28 +64,40 @@ const deleteDeviceSchema: RouteSchema = {
 @Controller({
   route: 'device',
   type: ControllerType.SINGLETON
-}) export default class DeviceController extends AbstractController {
-  @GET({ url: '/', options: { schema: getDevicesSchema } }) async getDevices(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+}) export default class DeviceController {
+  @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
+
+  @GET({ url: '/', options: { schema: getDevicesSchema } }) async getDevices(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceRepository = this.instance.orm.getRepository(Device);
     const devices = await deviceRepository.find({ relations: ['room', 'type', 'mqttComponents'] });
     return reply.code(200).send(JSON.stringify({ devices: devices }));
   }
 
-  @GET({ url: '/:id', options: { schema: getDeviceSchema } }) async getOneDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @GET({ url: '/:id', options: { schema: getDeviceSchema } }) async getOneDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceRepository = this.instance.orm.getRepository(Device);
     const device = await deviceRepository.findOne(request.params.id, { relations: ['room', 'type', 'mqttComponents'] });
     return reply.code(200).send(JSON.stringify(device));
   }
 
-  @PUT({ url: '/:id', options: { schema: putDeviceSchema } }) async updateDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @PUT({ url: '/:id', options: { schema: putDeviceSchema } }) async updateDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceRepository = this.instance.orm.getRepository(Device);
+    const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);
+    const roomRepository = this.instance.orm.getRepository(Room);
+    const mqttComponentRepository = this.instance.orm.getRepository(MqttComponent);
     const device = await deviceRepository.findOne(request.params.id);
     device.name = request.body.name;
+    if (request.body.roomId)
+      device.room = await roomRepository.findOne(request.body.roomId);
+    if (request.body.deviceTypeId)
+      device.type = await deviceTypeRepository.findOne(request.body.deviceTypeId);
+    if (request.body.mqttComponentIds)
+      device.mqttComponents = await mqttComponentRepository.findByIds(request.body.mqttComponentIds);
+
     await deviceRepository.save(device);
     return reply.code(200).send(device);
   }
 
-  @POST({ url: '/', options: { schema: postDeviceSchema } }) async createDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @POST({ url: '/', options: { schema: postDeviceSchema } }) async createDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceRepository = this.instance.orm.getRepository(Device);
     const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);
     const roomRepository = this.instance.orm.getRepository(Room);
@@ -106,7 +117,7 @@ const deleteDeviceSchema: RouteSchema = {
     return reply.code(200).send(device);
   }
 
-  @DELETE({ url: '/:id', options: { schema: deleteDeviceSchema } }) async deleteDevice(request: FastifyRequest<IncomingMessage>, reply: FastifyReply<ServerResponse>) {
+  @DELETE({ url: '/:id', options: { schema: deleteDeviceSchema } }) async deleteDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceRepository = this.instance.orm.getRepository(Device);
     const device = await deviceRepository.findOne(request.params.id);
     await deviceRepository.remove(device);
