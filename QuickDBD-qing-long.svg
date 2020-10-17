@@ -1,0 +1,124 @@
+<svg class="diagram-root" width="884" height="382" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>.diagram-root { font-family: "Helvetica Neue", sans-serif; font-size: 12px; } .t { overflow: visible; } .t-bg { y: 40; fill: #fff;   } .th { fill: #005aa0;   } .tht { fill: #fff; font-size: 14px;  } .tf { fill: #323c46; overflow: visible; } .tf.pk { fill: #005aa0; font-weight: bold; } .tf.fk { font-weight: bold; } .ty { fill: #adb1b5; font-weight: normal; text-anchor: end; } .r { fill: transparent; stroke: #c3c3c3; stroke-width: 1; } .l { stroke: 1; } .i { fill: #c2c7ce; stroke: #c2c7ce; } .i.ix { fill: #afb3b6; stroke: #000; } .fa { fill: transparent; overflow: visible; } .fa .bg.hover { fill: #f7f7f7; } .c { cy: 12; r: 4; stroke: #d2d2dc; fill: #d2d2dc; } .hr { fill: transparent; stroke: #323c46; stroke-opacity: 0.035; stroke-width: 13; } .dc { stroke: #fa5a3c; fill: #fa5a3c; } .x { stroke: white; stroke-width: 1; } .hl .th { fill: #1b9bff; } .hl .tht {  } .fhl .bg { fill: #e7f4ff; } .fhls .bg {  } .r.hl { stroke: #1b9bff; } .dim { opacity: 0.25; }</style>
+  <g class="drawing-wrapper" transform="translate(5, -41) scale(1,1)">
+    <g class="rs">
+      <path d="M 244 279 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 244 279 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M244 279 L244 279 232 279 M 244 285 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 244 285 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M244 285 L244 285 237 279 244 273 M 244 273 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 244 273 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M232 279 Q 214.26 279, 196.52 234.5 T 161.04 190 M 149.04 190 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 149.04 190 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M149.04 190 L149.04 190 161.04 190 M155.04 196 L155.04 196 155.04 184" id="h3699608569" class="r"></path>
+      <path d="M 244 304 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 244 304 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M244 304 L244 304 232 304 M 244 310 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 244 310 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M244 310 L244 310 237 304 244 298 M 244 298 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 244 298 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M232 304 Q 211.34 304, 190.68 324 T 149.36 344 M 137.36 344 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 137.36 344 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M137.36 344 L137.36 344 149.36 344 M143.36 350 L143.36 350 143.36 338" id="h3537670623" class="r"></path>
+      <path d="M 585.61 203 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 585.61 203 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M585.61 203 L585.61 203 597.61 203 M 585.61 209 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 585.61 209 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M585.61 209 L585.61 209 592.61 203 585.61 197 M 585.61 197 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 585.61 197 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M597.61 203 Q 616.71 203, 635.81 237.5 T 674 272 M 686 272 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 686 272 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M686 272 L686 272 674 272 M680 278 L680 278 680 266" id="h4060707354" class="r"></path>
+      <path d="M 460 228 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 460 228 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M460 228 L460 228 448 228 M 460 234 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 460 234 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M460 234 L460 234 453 228 460 222 M 460 222 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 460 222 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M448 228 Q 426.34 228, 404.68 228.5 T 361.36 229 M 349.36 229 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 349.36 229 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M349.36 229 L349.36 229 361.36 229 M355.36 235 L355.36 235 355.36 223" id="h2762248460" class="r"></path>
+      <path d="M 680 178 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 680 178 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M680 178 L680 178 668 178 M 680 184 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 680 184 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M680 184 L680 184 673 178 680 172 M 680 172 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 680 172 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M668 178 Q 650.41 178, 632.81 165.5 T 597.61 153 M 585.61 153 m -1, 0 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0 M 585.61 153 m -0.5, 0 a 0.5,0.5 0 1,0 1,0 a 0.5,0.5 0 1,0 -1,0  M585.61 153 L585.61 153 597.61 153 M591.61 159 L591.61 159 591.61 147" id="h3137167559" class="r"></path>
+    </g>
+    <g class="hrs"></g>
+    <g class="ts">
+      <svg width="132.04" height="125" x="17" y="133" id="h1532762019" class="t">
+        <rect height="40" width="132.04" class="th"></rect>
+        <text x="13" y="25" class="tht">Room</text>
+        <rect height="85" width="132.04" class="t-bg"></rect>
+        <text x="13" y="61" class="tf pk">
+          id
+          <tspan x="119.03999999999999" class="ty">int</tspan>
+        </text>
+        <path d="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7, 6A6, 6 0 0, 0 1, 12A6, 6 0 0, 0 7, 18C9.61, 18 11.83, 16.33 12.65, 14H17V18H21V14H23V10H12.65Z" class="i pk" transform="translate(86.36617187499999, 48) scale(0.65)"></path>
+        <text x="13" y="86" class="tf">
+          name
+          <tspan x="119.03999999999999" class="ty">string</tspan>
+        </text>
+        <text x="13" y="111" class="tf">
+          shortname
+          <tspan x="119.03999999999999" class="ty">string</tspan>
+        </text>
+      </svg>
+      <svg width="105.36" height="100" x="32" y="287" id="h729727525" class="t">
+        <rect height="40" width="105.36" class="th"></rect>
+        <text x="13" y="25" class="tht">DeviceType</text>
+        <rect height="60" width="105.36" class="t-bg"></rect>
+        <text x="13" y="61" class="tf pk">
+          id
+          <tspan x="92.36" class="ty">int</tspan>
+        </text>
+        <path d="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7, 6A6, 6 0 0, 0 1, 12A6, 6 0 0, 0 7, 18C9.61, 18 11.83, 16.33 12.65, 14H17V18H21V14H23V10H12.65Z" class="i pk" transform="translate(59.686171875, 48) scale(0.65)"></path>
+        <text x="13" y="86" class="tf">
+          name
+          <tspan x="92.36" class="ty">string</tspan>
+        </text>
+      </svg>
+      <svg width="105.36" height="150" x="244" y="172" id="h2177902783" class="t">
+        <rect height="40" width="105.36" class="th"></rect>
+        <text x="13" y="25" class="tht">Device</text>
+        <rect height="110" width="105.36" class="t-bg"></rect>
+        <text x="13" y="61" class="tf pk">
+          id
+          <tspan x="92.36" class="ty">int</tspan>
+        </text>
+        <path d="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7, 6A6, 6 0 0, 0 1, 12A6, 6 0 0, 0 7, 18C9.61, 18 11.83, 16.33 12.65, 14H17V18H21V14H23V10H12.65Z" class="i pk" transform="translate(59.686171875, 48) scale(0.65)"></path>
+        <text x="13" y="86" class="tf">
+          name
+          <tspan x="92.36" class="ty">string</tspan>
+        </text>
+        <text x="13" y="111" class="tf fk">
+          roomId
+          <tspan x="92.36" class="ty">int</tspan>
+        </text>
+        <text x="13" y="136" class="tf fk">
+          typeId
+          <tspan x="92.36" class="ty">int</tspan>
+        </text>
+      </svg>
+      <svg width="155.96" height="100" x="686" y="215" id="h1306226928" class="t">
+        <rect height="40" width="155.96" class="th"></rect>
+        <text x="13" y="25" class="tht">MqttComponentType</text>
+        <rect height="60" width="155.96" class="t-bg"></rect>
+        <text x="13" y="61" class="tf pk">
+          id
+          <tspan x="142.96" class="ty">int</tspan>
+        </text>
+        <path d="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7, 6A6, 6 0 0, 0 1, 12A6, 6 0 0, 0 7, 18C9.61, 18 11.83, 16.33 12.65, 14H17V18H21V14H23V10H12.65Z" class="i pk" transform="translate(110.28617187500001, 48) scale(0.65)"></path>
+        <text x="13" y="86" class="tf">
+          type
+          <tspan x="142.96" class="ty">string</tspan>
+        </text>
+      </svg>
+      <svg width="125.61" height="150" x="460" y="96" id="h1674238247" class="t">
+        <rect height="40" width="125.61" class="th"></rect>
+        <text x="13" y="25" class="tht">MqttComponent</text>
+        <rect height="110" width="125.61" class="t-bg"></rect>
+        <text x="13" y="61" class="tf pk">
+          id
+          <tspan x="112.61" class="ty">int</tspan>
+        </text>
+        <path d="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7, 6A6, 6 0 0, 0 1, 12A6, 6 0 0, 0 7, 18C9.61, 18 11.83, 16.33 12.65, 14H17V18H21V14H23V10H12.65Z" class="i pk" transform="translate(79.936171875, 48) scale(0.65)"></path>
+        <text x="13" y="86" class="tf">
+          topic
+          <tspan x="112.61" class="ty">string</tspan>
+        </text>
+        <text x="13" y="111" class="tf fk">
+          typeId
+          <tspan x="112.61" class="ty">int</tspan>
+        </text>
+        <text x="13" y="136" class="tf fk">
+          deviceId
+          <tspan x="112.61" class="ty">int</tspan>
+        </text>
+      </svg>
+      <svg width="160.37" height="125" x="680" y="71" id="h1743695041" class="t">
+        <rect height="40" width="160.37" class="th"></rect>
+        <text x="13" y="25" class="tht">MqttComponentValue</text>
+        <rect height="85" width="160.37" class="t-bg"></rect>
+        <text x="13" y="61" class="tf pk">
+          id
+          <tspan x="147.37" class="ty">int</tspan>
+        </text>
+        <path d="M7,14A2,2 0 0,1 5,12A2,2 0 0,1 7,10A2,2 0 0,1 9,12A2,2 0 0,1 7,14M12.65,10C11.83,7.67 9.61,6 7, 6A6, 6 0 0, 0 1, 12A6, 6 0 0, 0 7, 18C9.61, 18 11.83, 16.33 12.65, 14H17V18H21V14H23V10H12.65Z" class="i pk" transform="translate(114.696171875, 48) scale(0.65)"></path>
+        <text x="13" y="86" class="tf">
+          value
+          <tspan x="147.37" class="ty">string</tspan>
+        </text>
+        <text x="13" y="111" class="tf fk">
+          mqttComponentId
+          <tspan x="147.37" class="ty">int</tspan>
+        </text>
+      </svg>
+    </g>
+  </g>
+  <text class="qdbd-link" x="10" y="20">www.quickdatabasediagrams.com</text>
+</svg>

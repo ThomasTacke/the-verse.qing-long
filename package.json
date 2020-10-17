@@ -1,0 +1,50 @@
+{
+  "name": "@smart-home-the-verse/qing-long",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/inex.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "pretest": "cp db.test db.test.sqlite3 && ln -s test.env .env",
+    "test": "jest --coverage=true",
+    "posttest": "rm db.test.sqlite3 && rm .env",
+    "start": "ts-node --files ./src/index.ts",
+    "dev": "nodemon --watch './src/**/*.ts' --exec ts-node --files ./src/index.ts",
+    "build": "tsc",
+    "docker:buildx": "DOCKER_CLI_EXPERIMENTAL=enabled docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 --push -t rootthekid/qing-long:latest  ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/smart-home-the-verse/qing-long.git"
+  },
+  "author": "Thomas Tacke <thomas@tacke.email>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/smart-home-the-verse/qing-long/issues"
+  },
+  "homepage": "https://gitlab.com/smart-home-the-verse/qing-long#readme",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.8",
+    "eslint": "^7.11.0",
+    "jest": "^26.5.3",
+    "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "async-mqtt": "^2.6.1",
+    "dotenv": "^8.2.0",
+    "fastify": "^3.6.0",
+    "fastify-decorators": "^3.2.3",
+    "fastify-oas": "^3.0.3",
+    "fastify-typeorm": "^2.1.2",
+    "fluent-schema": "^1.0.4",
+    "mongodb": "^3.6.2",
+    "sqlite3": "^5.0.0",
+    "typeorm": "^0.2.28"
+  }
+}
