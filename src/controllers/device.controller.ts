@@ -9,6 +9,7 @@ export const deviceResponseSchema = S.object()
   .id('#device')
   .prop('id', S.number())
   .prop('name', S.string())
+  .prop('displayName', S.string())
   .prop('room', S.ref('#room'))
   .prop('devicetype', S.ref('#devicetype'))
   .prop('mqttComponents', S.array().ref('#mqttcomponent'));
@@ -19,6 +20,7 @@ export const devicesResponseSchema = S.object()
 
 const deviceBodySchema = S.object()
   .prop('name', S.string()).required()
+  .prop('displayName', S.string()).required()
   .prop('deviceTypeId', S.number()).required()
   .prop('roomId', S.number())
   .prop('mqttComponentIds', S.array().items(S.number()));
@@ -86,6 +88,7 @@ const deleteDeviceSchema = {
     const mqttComponentRepository = this.instance.orm.getRepository(MqttComponent);
     const device = await deviceRepository.findOne(request.params.id);
     device.name = request.body.name;
+    device.displayName = request.body.displayName;
     if (request.body.roomId)
       device.room = await roomRepository.findOne(request.body.roomId);
     if (request.body.deviceTypeId)
@@ -109,6 +112,7 @@ const deleteDeviceSchema = {
     ]);
     let device = new Device();
     device.name = request.body.name;
+    device.displayName = request.body.displayName;
     device.room = results[0] as Room;
     device.type = results[1];
     device.mqttComponents = results[2];

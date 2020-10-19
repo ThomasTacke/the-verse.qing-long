@@ -30,7 +30,8 @@ describe('Controller: DeviceController', () => {
       method: 'POST',
       url: `${route}`,
       payload: {
-        name: 'Test',
+        name: 'Testloore01',
+        displayName: 'Test',
         deviceTypeId: 1,
         roomId: 1,
         mqttComponentIds: [
@@ -46,7 +47,8 @@ describe('Controller: DeviceController', () => {
       method: 'PUT',
       url: `${route}/1`,
       payload: {
-        name: 'NodeMCU Kitchen',
+        name: 'motherloore01',
+        displayName: 'NodeMCU Kitchen',
         deviceTypeId: 1,
         roomId: 1,
         mqttComponentIds: [
