@@ -36,6 +36,9 @@ export class Device implements IDevice {
   @Column()
   name: string;
 
+  @Column()
+  displayName: string;
+
   @ManyToOne(() => Room) @JoinColumn()
   room: Room;
 

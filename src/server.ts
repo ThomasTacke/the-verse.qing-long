@@ -35,7 +35,16 @@ const swaggerSchema = {
       url: 'https://swagger.io',
       description: 'Find more info here',
     },
-    host: 'localhost:3000',
+    servers: [{
+      url: 'http://172.18.183.13:3000',
+      description: 'Local WSL Dev Server'
+    }, {
+      url: 'http://localhost:3000',
+      description: 'Local Dev Server'
+    }, {
+      url: 'http://192.168.42.45/qing-long/v1',
+      description: 'Production Instance'
+    }],
     schemes: ['http', 'https'],
     consumes: ['application/json'],
     produces: ['application/json']
@@ -79,7 +88,6 @@ const createServer = () => {
   // Register routes here
   instance.register(bootstrap, {
     directory: resolve(__dirname, `controllers`),
-    // prefix: '/qing-long/v1',
     mask: /\.controller\./
   });
 

@@ -20,7 +20,8 @@ This is the Database Interface. It's provided with a REST-API.
 5. Create DeviceType
    1. name=NodeMCU
 6. Create Device
-   1. name=NodeMCU Kitchen
-   2. roomId=1
-   3. typeId=1
-   4. MqttComponentIds=[1,2]
+   1. name=motherloore01
+   2. displayName=NodeMCU Kitchen
+   3. roomId=1
+   4. typeId=1
+   5. MqttComponentIds=[1,2]

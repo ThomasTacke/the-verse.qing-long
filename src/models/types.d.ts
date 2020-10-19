@@ -11,6 +11,7 @@ export interface IRoom {
 
 export interface IDevice {
   name: string;
+  displayName: string;
   room: IRoom;
   type: IDeviceType;
   mqttComponents?: Array<IMqttComponent>;

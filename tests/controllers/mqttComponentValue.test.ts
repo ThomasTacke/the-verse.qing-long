@@ -20,7 +20,7 @@ describe('Controller: MqttComponentValueController', () => {
   it(`GET MqttComponentValue`, async () => {
     const result = await instance.inject({
       method: 'GET',
-      url: `${route}/5`
+      url: `${route}/1`
     });
     expect(result.statusCode).toEqual(200);
   });
@@ -41,7 +41,7 @@ describe('Controller: MqttComponentValueController', () => {
   it(`PUT MqttComponentValue`, async () => {
     const result = await instance.inject({
       method: 'PUT',
-      url: `${route}/6`,
+      url: `${route}/1`,
       payload: {
         value: '31',
         type: '°C',
@@ -54,7 +54,7 @@ describe('Controller: MqttComponentValueController', () => {
   it(`DELETE MqttComponentValue`, async () => {
     const result = await instance.inject({
       method: 'DELETE',
-      url: `${route}/9`
+      url: `${route}/5`
     });
     expect(result.statusCode).toEqual(204);
   });
