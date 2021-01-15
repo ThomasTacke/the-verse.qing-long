@@ -65,3 +65,5 @@ test/types/index.js
 .env*
 
 *.sqlite3
+
+dist

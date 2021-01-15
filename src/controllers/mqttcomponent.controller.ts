@@ -9,7 +9,7 @@ export const mqttComponentSchema = S.object()
   .id('#mqttcomponent')
   .prop('id', S.number())
   .prop('topic', S.string())
-  .prop('mqttcomponentvalues', S.array().ref('#mqttcomponentvalue'))
+  .prop('mqttcomponentvalues', S.array().ref('#mqttcomponentget'))
   .prop('mqttcomponenttype', S.ref('#mqttcomponenttype'));
 
 export const mqttComponentsSchema = S.object()

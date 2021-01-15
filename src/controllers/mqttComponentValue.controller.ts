@@ -1,19 +1,26 @@
 import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
 import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
-import { MqttComponent, MqttComponentValue } from '../models/sqlite.models';
+import { MqttComponentValue } from '../models/sqlite.models';
 import S from 'fluent-schema';
 
 const tag = 'MQTT Component Value';
 
-export const mqttComponentValueSchema = S.object()
-  .id('#mqttcomponentvalue')
+export const mqttComponentPostSchema = S.object()
+  .id('#mqttcomponentpost')
   .prop('value', S.string())
   .prop('mqttComponentId', S.number())
   .prop('type', S.string());
 
+export const mqttComponentGetSchema = S.object()
+  .id('#mqttcomponentget')
+  .prop('value', S.string())
+  .prop('mqttComponentId', S.number())
+  .prop('type', S.string())
+  .prop('timestamp', S.string());
+
 export const mqttComponentValuesSchema = S.object()
   .id('#mqttcomponentvalues')
-  .prop('mqttComponentValues', S.array().ref('#mqttcomponentvalue'));
+  .prop('mqttComponentValues', S.array().ref('#mqttcomponentget'));
 
 const idParam = S.object()
   .prop('id', S.number());
@@ -28,22 +35,22 @@ const getMqttComponentValueSchema = {
   tags: [tag],
   description: 'Get Specific MQTT Component Value',
   params: idParam,
-  response: { 200: mqttComponentValueSchema }
+  response: { 200: mqttComponentGetSchema }
 };
 
 const putMqttComponentValueSchema = {
   tags: [tag],
   description: 'Update MQTT Component Value',
   params: idParam,
-  body: mqttComponentValueSchema,
-  response: { 200: mqttComponentValueSchema }
+  body: mqttComponentPostSchema,
+  response: { 200: mqttComponentPostSchema }
 };
 
 const postMqttComponentValueSchema = {
   tags: [tag],
   description: 'Create MQTT Component Value',
-  body: mqttComponentValueSchema,
-  response: { 201: mqttComponentValueSchema }
+  body: mqttComponentPostSchema,
+  response: { 201: mqttComponentPostSchema }
 };
 
 const deleteMqttComponentValueSchema = {
@@ -59,19 +66,19 @@ const deleteMqttComponentValueSchema = {
 }) export default class MqttcomponentValueController {
   @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
 
-  @GET({ url: '/', options: { schema: getMqttComponentValuesSchema } }) async getRooms(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
+  @GET({ url: '/', options: { schema: getMqttComponentValuesSchema } }) async getMqttComponentValues(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentValueRepository = this.instance.orm.getRepository(MqttComponentValue);
     const mqttComponentValues = await mqttComponentValueRepository.find();
     return reply.code(200).send(JSON.stringify({ mqttComponentValues: mqttComponentValues }));
   }
 
-  @GET({ url: '/:id', options: { schema: getMqttComponentValueSchema } }) async getOneDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
+  @GET({ url: '/:id', options: { schema: getMqttComponentValueSchema } }) async getOneMqttComponentValue(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentValueRepository = this.instance.orm.getRepository(MqttComponentValue);
     const mqttComponentValue = await mqttComponentValueRepository.findOne(request.params.id, { relations: ['mqttComponent',] });
     return reply.code(200).send(JSON.stringify(mqttComponentValue));
   }
 
-  @PUT({ url: '/:id', options: { schema: putMqttComponentValueSchema } }) async updateDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
+  @PUT({ url: '/:id', options: { schema: putMqttComponentValueSchema } }) async updateMqttComponentValue(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentValueRepository = this.instance.orm.getRepository(MqttComponentValue);
     const mqttComponentValue = await mqttComponentValueRepository.findOne(request.params.id);
     mqttComponentValue.value = request.body.value;
@@ -79,7 +86,7 @@ const deleteMqttComponentValueSchema = {
     return reply.code(200).send(mqttComponentValue);
   }
 
-  @POST({ url: '/', options: { schema: postMqttComponentValueSchema } }) async createDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
+  @POST({ url: '/', options: { schema: postMqttComponentValueSchema } }) async createMqttComponentValue(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentValueRepository = this.instance.orm.getRepository(MqttComponentValue);
     let mqttComponentValue = new MqttComponentValue();
     mqttComponentValue.value = request.body.value;
@@ -89,7 +96,7 @@ const deleteMqttComponentValueSchema = {
     return reply.code(200).send(mqttComponentValue);
   }
 
-  @DELETE({ url: '/:id', options: { schema: deleteMqttComponentValueSchema } }) async deleteDevice(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
+  @DELETE({ url: '/:id', options: { schema: deleteMqttComponentValueSchema } }) async deleteMqttComponentValue(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentValueRepository = this.instance.orm.getRepository(MqttComponentValue);
     const mqttComponentValue = await mqttComponentValueRepository.findOne(request.params.id);
     await mqttComponentValueRepository.remove(mqttComponentValue);
