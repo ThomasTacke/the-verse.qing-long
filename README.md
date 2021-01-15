@@ -2,7 +2,7 @@
 
 This is the Database Interface. It's provided with a REST-API.
 
-![DB Diagram](QuickDBD-qing-long.svg "DB Diagram")
+![DB Diagram](QuickDBD-qing-long.png "DB Diagram")
 
 ## Init DB Manually
 

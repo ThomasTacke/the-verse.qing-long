@@ -1,4 +1,4 @@
-import { Entity, Column, ObjectID, OneToOne, JoinColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
+import { Entity, Column, ObjectID, JoinColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne, AfterInsert, AfterUpdate } from "typeorm";
 import { IRoom, IDeviceType, IDevice, IMqttComponent } from './types'
 
 @Entity()
@@ -89,6 +89,9 @@ export class MqttComponentValue {
 
   @Column()
   type: string;
+
+  @Column("datetime", { default: () => "CURRENT_TIMESTAMP" })
+  timestamp: Date = new Date();
 
   @ManyToOne(() => MqttComponent, mqttComponent => mqttComponent.values)
   mqttComponent: MqttComponent;

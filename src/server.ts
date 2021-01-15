@@ -10,7 +10,7 @@ import fastifyTypeorm = require('fastify-typeorm');
 import { roomSchema, roomsSchema } from './controllers/room.controller';
 import { deviceTypeSchema, deviceTypesSchema } from './controllers/deviceType.controller';
 import { mqttComponentTypeSchema, mqttComponentTypesSchema } from './controllers/mqttComponentType.controller';
-import { mqttComponentValueSchema, mqttComponentValuesSchema } from './controllers/mqttComponentValue.controller';
+import { mqttComponentPostSchema, mqttComponentGetSchema, mqttComponentValuesSchema } from './controllers/mqttComponentValue.controller';
 import { mqttComponentSchema, mqttComponentsSchema } from './controllers/mqttcomponent.controller';
 import { deviceResponseSchema, devicesResponseSchema } from './controllers/device.controller';
 
@@ -22,6 +22,19 @@ const fastifyOpts: FastifyServerOptions = process.env.NODE_ENV !== 'test' ? {
   },
   pluginTimeout: 10000,
 } : {}
+
+const devServer = process.env.NODE_ENV === 'wsl' ? {
+  url: `http://${process.env.ADDRESS}:3000`,
+  description: 'Local WSL Dev Server'
+} : {
+  url: `http://localhost:3000`,
+  description: 'Local Dev Server'
+}
+
+const server = process.env.NODE_ENV === 'prod' ? {
+  url: `http://${process.env.ADDRESS}/qing-long/v1`,
+  description: 'Production Instance'
+} : devServer
 
 const swaggerSchema = {
   routePrefix: '/documentation',
@@ -35,16 +48,7 @@ const swaggerSchema = {
       url: 'https://swagger.io',
       description: 'Find more info here',
     },
-    servers: [{
-      url: 'http://172.18.183.13:3000',
-      description: 'Local WSL Dev Server'
-    }, {
-      url: 'http://localhost:3000',
-      description: 'Local Dev Server'
-    }, {
-      url: 'http://192.168.42.45/qing-long/v1',
-      description: 'Production Instance'
-    }],
+    servers: [server],
     schemes: ['http', 'https'],
     consumes: ['application/json'],
     produces: ['application/json']
@@ -78,7 +82,8 @@ const createServer = () => {
   instance.addSchema(deviceTypesSchema);
   instance.addSchema(mqttComponentTypeSchema);
   instance.addSchema(mqttComponentTypesSchema);
-  instance.addSchema(mqttComponentValueSchema);
+  instance.addSchema(mqttComponentPostSchema);
+  instance.addSchema(mqttComponentGetSchema);
   instance.addSchema(mqttComponentValuesSchema);
   instance.addSchema(mqttComponentSchema);
   instance.addSchema(mqttComponentsSchema);
