@@ -67,7 +67,7 @@ const createServer = () => {
   // Register DB Plugin
   instance.register(fastifyTypeorm, {
     type: 'sqlite',
-    database: process.env.DB_FILENAME || './db.sqlite3',
+    database: process.env.DB_FILENAME || './db/db.sqlite3',
     entities: [
       Room, DeviceType, MqttComponentType, MqttComponentValue, MqttComponent, Device
     ],
