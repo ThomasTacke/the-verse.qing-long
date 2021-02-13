@@ -7,9 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "pretest": "cp db.test db.test.sqlite3 && ln -s test.env .env",
+    "pretest": "cp db/db.test db/db.test.sqlite3 && ln -s test.env .env",
     "test": "jest --coverage=true",
-    "posttest": "rm db.test.sqlite3 && rm .env",
+    "posttest": "rm db/db.test.sqlite3 && rm .env",
     "start": "ts-node --files ./src/index.ts",
     "dev": "nodemon --watch './src/**/*.ts' --exec ts-node --files ./src/index.ts",
     "build": "tsc",

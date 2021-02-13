@@ -64,6 +64,6 @@ test/types/index.js
 # envirnoment files
 .env*
 
-*.sqlite3
+db/*.sqlite3
 
 dist
