@@ -32,7 +32,7 @@ const devServer = process.env.NODE_ENV === 'wsl' ? {
 }
 
 const server = process.env.NODE_ENV === 'prod' ? {
-  url: `http://${process.env.ADDRESS}/qing-long/v1`,
+  url: `http://${process.env.SWAGGER_ADDRESS}`,
   description: 'Production Instance'
 } : devServer
 

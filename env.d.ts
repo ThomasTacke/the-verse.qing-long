@@ -8,6 +8,7 @@ declare namespace NodeJS {
     DB_FILENAME?: string;
     NODE_ENV?: string;
     ADDRESS?: string;
+    SWAGGER_ADDRESS?: string;
     PORT?: string;
     DEBUG?: string;
   }
