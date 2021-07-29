@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
 import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
 import { Device, Room, DeviceType, MqttComponent } from '../models/sqlite.models';
-import S from 'fluent-schema';
+import S from 'fluent-json-schema';
 
 const tag = 'Device';
 
