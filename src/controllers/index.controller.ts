@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
-import { Controller, ControllerType, GET, Inject, FastifyInstanceToken } from 'fastify-decorators';
+import { Controller, ControllerType, GET, FastifyInstanceToken, getInstanceByToken } from 'fastify-decorators';
 import S from 'fluent-json-schema';
 
 const tag = 'Index';
@@ -19,7 +19,7 @@ const getIndexSchema = {
   route: '',
   type: ControllerType.SINGLETON
 }) export default class IndexController {
-  @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
+  private instance: FastifyInstance = getInstanceByToken(FastifyInstanceToken);
 
   @GET({ url: '/', options: { schema: getIndexSchema } }) async getIndex(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     return reply.code(200).send({

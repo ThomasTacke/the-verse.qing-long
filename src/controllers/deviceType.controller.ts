@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
-import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
+import { Controller, ControllerType, GET, PUT, POST, DELETE, FastifyInstanceToken, getInstanceByToken } from 'fastify-decorators';
 import { DeviceType } from '../models/sqlite.models';
 import S from 'fluent-json-schema';
 
@@ -59,7 +59,7 @@ const deleteDeviceTypeSchema = {
   route: 'devicetype',
   type: ControllerType.SINGLETON
 }) export default class DeviceTypeController {
-  @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
+  private instance: FastifyInstance = getInstanceByToken(FastifyInstanceToken);
   
   @GET({ url: '/', options: { schema: getDeviceTypesSchema } }) async getRooms(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const deviceTypeRepository = this.instance.orm.getRepository(DeviceType);

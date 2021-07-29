@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
-import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
+import { Controller, ControllerType, GET, PUT, POST, DELETE, FastifyInstanceToken, getInstanceByToken } from 'fastify-decorators';
 import { Device, Room, DeviceType, MqttComponent } from '../models/sqlite.models';
 import S from 'fluent-json-schema';
 
@@ -67,9 +67,10 @@ const deleteDeviceSchema = {
   route: 'device',
   type: ControllerType.SINGLETON
 }) export default class DeviceController {
-  @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
+  private instance: FastifyInstance = getInstanceByToken(FastifyInstanceToken);
 
   @GET({ url: '/', options: { schema: getDevicesSchema } }) async getDevices(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
+    this.instance.log.info("Das ist ein Test");
     const deviceRepository = this.instance.orm.getRepository(Device);
     const devices = await deviceRepository.find({ relations: ['room', 'type', 'mqttComponents'] });
     return reply.code(200).send(JSON.stringify({ devices: devices }));

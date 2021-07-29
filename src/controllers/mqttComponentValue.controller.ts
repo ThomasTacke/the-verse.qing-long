@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest, RawServerBase } from 'fastify'
-import { Controller, ControllerType, GET, PUT, POST, DELETE, Inject, FastifyInstanceToken } from 'fastify-decorators';
+import { Controller, ControllerType, GET, PUT, POST, DELETE, FastifyInstanceToken, getInstanceByToken } from 'fastify-decorators';
 import { MqttComponentValue } from '../models/sqlite.models';
 import S from 'fluent-json-schema';
 
@@ -64,7 +64,7 @@ const deleteMqttComponentValueSchema = {
   route: 'mqttcomponentvalue',
   type: ControllerType.SINGLETON
 }) export default class MqttcomponentValueController {
-  @Inject(FastifyInstanceToken) private instance!: FastifyInstance;
+  private instance: FastifyInstance = getInstanceByToken(FastifyInstanceToken);
 
   @GET({ url: '/', options: { schema: getMqttComponentValuesSchema } }) async getMqttComponentValues(request: FastifyRequest<any>, reply: FastifyReply<RawServerBase>) {
     const mqttComponentValueRepository = this.instance.orm.getRepository(MqttComponentValue);
