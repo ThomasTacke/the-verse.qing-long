@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "pretest": "cp db/db.test db/db.test.sqlite3 && ln -s test.env .env",
+    "pretest": "cp db/test.sqlite3 db/db.test.sqlite3 && ln -s test.env .env",
     "test": "jest --coverage=true",
     "posttest": "rm db/db.test.sqlite3 && rm .env",
     "start": "ts-node --files ./src/index.ts",
